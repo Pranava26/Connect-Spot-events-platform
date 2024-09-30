@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link"
 
 const Footer = () => {
@@ -6,7 +5,7 @@ const Footer = () => {
     <footer className="border-t">
       <div className="flex-center wrapper flex-between flex flex-col gap-4 p-5 text-center sm:flex-row">
         <Link href="/" >
-          <Image src="/assets/images/logo.svg" alt="logo" width={128} height={38} />
+          <h1 className="p-bold-20 text-primary-500">Connect Spot</h1>
         </Link>
         <p>2024 Connect Spot. All Rights reserved.</p>
       </div>

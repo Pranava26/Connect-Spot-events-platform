@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "../ui/button"
 import NavItems from "./NavItems"
@@ -8,8 +7,8 @@ import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
 const Header = () => {
-    
-    const {status} = useSession();
+
+    const { status } = useSession();
 
     const onSignout = async () => {
         await signOut();
@@ -19,7 +18,7 @@ const Header = () => {
         <header className="w-full border-b">
             <div className="wrapper flex items-center justify-between">
                 <Link href="/" className="w-36">
-                    <Image src="/assets/images/logo.svg" width={128} height={38} alt="Connect spot logo" />
+                    <h1 className="p-bold-20 text-primary-500">Connect Spot</h1>
                 </Link>
 
                 <div>
@@ -28,19 +27,21 @@ const Header = () => {
                     </nav>
                 </div>
 
-                <div className="flex w-32 justify-end gap-3">
+                <div className="flex items-center w-32 justify-end gap-3">
+                    <div>
+                        {status === 'authenticated' ? (
+                            <Button className="rounded-full" size="lg">
+                                <span onClick={onSignout}>Logout</span>
+                            </Button>
+                        ) : (
+                            <Button asChild className="rounded-full" size="lg">
+                                <Link href="/sign-in" >Login</Link>
+                            </Button>
+                        )}
+                    </div>
                     <div>
                         <MobileNav />
                     </div>
-                    {status === 'authenticated' ? (
-                        <Button className="rounded-full" size="lg">
-                            <span onClick={onSignout}>Logout</span>
-                        </Button>
-                    ) : (
-                        <Button asChild className="rounded-full" size="lg">
-                            <Link href="/sign-in" >Login</Link>
-                        </Button>
-                    )}
                 </div>
             </div>
         </header>
