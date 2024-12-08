@@ -8,14 +8,19 @@ connectToDatabase()
 export async function POST(request) {
     try {
         const reqBody = await request.json()
-        const {username, email, password} = reqBody
+        const { username, email, password } = reqBody
 
-        const user = await User.findOne({email})
+        const user = await User.findOne({
+            $or: [
+                { email },
+                { username }
+            ]
+        })
 
-        if(user){
-            return NextResponse.json({error: "User already exists"}, {status: 400})
+        if (user) {
+            return NextResponse.json({ error: "User already exists" }, { status: 400 })
         }
-        
+
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
 
@@ -27,9 +32,9 @@ export async function POST(request) {
 
         const savedUser = await newUser.save();
 
-        return NextResponse.json({message: "User registered successfully", success: true, savedUser})
+        return NextResponse.json({ message: "User registered successfully", success: true, savedUser })
 
     } catch (error) {
-        return NextResponse.json({error: error.message}, {status: 500})
+        return NextResponse.json({ error: error.message }, { status: 500 })
     }
 }
