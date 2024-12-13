@@ -23,7 +23,7 @@ const Card = async ({ event, hasOrderLink }) => {
                         <Image src={"/assets/icons/edit.svg"} alt='edit' width={20} height={20} />
                     </Link>
 
-                    <DeleteConfirmation event={event._id} />
+                    <DeleteConfirmation eventId={event._id} />
                 </div>
             )}
             <div className='flex min-h-[230px] flex-col gap-3 p-5 md:gap-4' >
